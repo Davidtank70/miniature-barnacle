@@ -8,6 +8,6 @@ public class Employee {
 	int SSN;
 	
 	public Employee() {
-		
+		// constructor	
 	}
 }
