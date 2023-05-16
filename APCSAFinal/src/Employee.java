@@ -69,7 +69,7 @@ public class Employee {
 	 * Note: This method is automatically called during object initialization to calculate 
 	 * the annual income based on the hourly pay rate and weekly hours worked.
 	 *
-	 * @param annualIncome The annual income to be set for the employee.
+	 * @param annualIncome The annual income to be set for the employee. 
 	 */
 	private void setAnnualIncome(double annualIncome) {
 		this.annualIncome = annualIncome;
