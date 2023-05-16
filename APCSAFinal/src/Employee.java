@@ -21,7 +21,7 @@ public class Employee {
 		setJobTitle("jobTitle");
 		setHourlyPay(0.0);
 		setWeeklyHours(0);
-		setIDNumber(this.IDNumber);
+		setIDNumber(Employee.IDNumber);
 		setSSN("000-00-0000");
 		
 		// Determine annual income based on the weekly hours and pay
@@ -44,6 +44,7 @@ public class Employee {
      */
 	public Employee(String fName, String lName, String jobTitle, 
 			String SSN, double hourlyPay, int weeklyHours) {
+
 		// Set the user defined values for class attributes
 		setfName(fName);
 		setlName(lName);
@@ -51,7 +52,7 @@ public class Employee {
 		setHourlyPay(hourlyPay);
 		setWeeklyHours(weeklyHours);
 		setSSN(SSN);
-		setIDNumber(this.IDNumber);
+		setIDNumber(Employee.IDNumber);
 		
 		// Determine annual income based on the weekly hours and pay
 		setAnnualIncome(getWeeklyHours() * getHourlyPay());
@@ -61,7 +62,6 @@ public class Employee {
 	}
 	
 	
-	// =========================
 	// Getter and setter methods
 	
 	/**
