@@ -1,4 +1,5 @@
 public class Employee {
+
 	private String fName;
 	private String lName;
 	private String jobTitle;
@@ -7,28 +8,16 @@ public class Employee {
 	private double annualIncome;
 	private int weeklyHours;
 	
-	
 	private static int IDNumber = 0;
 	
 	/**
      * Default constructor for the Employee class.
      * Initializes the employee with default values and increments the ID number.
+     * Calls the overloaded constructor to set these values
      */
 	public Employee() {
 		// Set default values for class attributes
-		setfName("firstName");
-		setlName("lastName");
-		setJobTitle("jobTitle");
-		setHourlyPay(0.0);
-		setWeeklyHours(0);
-		setIDNumber(Employee.IDNumber);
-		setSSN("000-00-0000");
-		
-		// Determine annual income based on the weekly hours and pay
-		setAnnualIncome(getWeeklyHours() * getHourlyPay());
-		
-		// Increment the employee ID number
-		Employee.IDNumber++;
+		new Employee("firstName", "lastName", "jobTitle", "000-00-0000", 0.0, 0);
 	}
 	
 	/**
@@ -44,7 +33,6 @@ public class Employee {
      */
 	public Employee(String fName, String lName, String jobTitle, 
 			String SSN, double hourlyPay, int weeklyHours) {
-
 		// Set the user defined values for class attributes
 		setfName(fName);
 		setlName(lName);
@@ -52,7 +40,7 @@ public class Employee {
 		setHourlyPay(hourlyPay);
 		setWeeklyHours(weeklyHours);
 		setSSN(SSN);
-		setIDNumber(Employee.IDNumber);
+		setIDNumber(this.IDNumber);
 		
 		// Determine annual income based on the weekly hours and pay
 		setAnnualIncome(getWeeklyHours() * getHourlyPay());
@@ -62,6 +50,7 @@ public class Employee {
 	}
 	
 	
+	// =========================
 	// Getter and setter methods
 	
 	/**
