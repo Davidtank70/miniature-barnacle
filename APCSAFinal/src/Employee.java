@@ -1,5 +1,5 @@
 public class Employee {
-
+	// Instance variables
 	private String fName;
 	private String lName;
 	private String jobTitle;
@@ -8,6 +8,7 @@ public class Employee {
 	private double annualIncome;
 	private int weeklyHours;
 	
+	// static instance variable
 	private static int IDNumber = 0;
 	
 	/**
