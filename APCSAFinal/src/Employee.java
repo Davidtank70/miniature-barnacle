@@ -14,7 +14,7 @@ public class Employee {
 	/**
      * Default constructor for the Employee class.
      * Initializes the employee with default values and increments the ID number.
-     * Calls the overloaded constructor to set these values
+     * Calls the overloaded constructor to set the values
      */
 	public Employee() {
 		// Set default values for class attributes
