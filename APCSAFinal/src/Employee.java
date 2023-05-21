@@ -18,7 +18,7 @@ public class Employee {
      */
 	public Employee() {
 		// Set default values for class attributes
-		new Employee("firstName", "lastName", "jobTitle", "000-00-0000", 0.0, 0);
+		this("firstName", "lastName", "jobTitle", "000-00-0000", 0.0, 0);
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public class Employee {
 		setJobTitle(jobTitle);
 		setHourlyPay(hourlyPay);
 		setWeeklyHours(weeklyHours);
-		setSSN(ssn);
+		setSsn(ssn);
 		setIDNumber(this.IDNumber);
 		
 		// Determine annual income based on the weekly hours and pay
@@ -117,8 +117,8 @@ public class Employee {
 		return ssn;
 	}
 
-	public void setSSN(String ssn) {
-		ssn = ssn;
+	public void setSsn(String Ssn) {
+		this.ssn = Ssn;
 	}
 
 	public double getAnnualIncome() {
