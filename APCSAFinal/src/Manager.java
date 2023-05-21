@@ -11,18 +11,21 @@ public class Manager extends Employee {
 	}
 	
 	/**
-	 * Overloaded constructor to create a manager, uses the super constructor
-	 * from the employee superclass for the shared variables. 
-	 * @param fName
-	 * @param lName
-	 * @param jobTitle
-	 * @param ssn
-	 * @param hourlyPay
-	 * @param weeklyHours
-	 * @param securityQuestion
-	 * @param securityAnswer
-	 * @param password
-	 */
+	* Initializes a manager object by using the super constructor
+	* from the Employee superclass to set the shared variables.
+	*
+	* @param fName - The first name of the manager.
+	* @param lName - The last name of the manager.
+	* @param jobTitle - The job title of the manager.
+	* @param ssn - The SSN of the manager.
+	* @param hourlyPay - The hourly pay rate of the manager.
+	* @param weeklyHours - The number of hours the manager works per week.
+	* @param securityQuestion - The security question for the manager's account.
+	* @param securityAnswer - The security answer for the manager's account.
+	* @param password - The password for the manager's account.
+	*
+	* This is the overloaded constructor for creating a manager.
+	*/
 	public Manager(String fName, String lName, String jobTitle, String ssn, double hourlyPay, 
 			int weeklyHours, String securityQuestion, String securityAnswer, String password) {
 		

@@ -73,16 +73,17 @@ public class App {
 	}
 	
 	/**
-	 * Login Process for the app
-	 * Gets user input for username and password
-	 * Then checks the manager list for the username
-	 * and password.
-	 * 
-	 * Returns true if username and password match
-	 * Returns false if username or password do not match
-	 * 
-	 * Uses the username exists and password matches helper methods
-	 */
+	* Performs the login process for the app.
+	* Retrieves user input for SSN and password,
+	* and then checks the manager list for a match
+	* of the entered SSN and password.
+	*
+	* Returns true if the SSN and password match,
+	* false if either the SSN or password do not match.
+	*
+	* Utilizes helper methods to check if the SSN exists
+	* and if the password matches.
+	*/
 	private boolean loginProcess() {
 		Scanner scanner = new Scanner(System.in);
 		String ssn = "";
@@ -113,14 +114,16 @@ public class App {
 		
 	}
 
+
 	/**
-	 * Checks if the users login is valid by comparing first the SSN
-	 * to each manager in the list and if the SSN matches then it checks
-	 * the password. If the password also matches true will be returned.
-	 * @param SSN - the managers SSN
-	 * @param password - the managers password
-	 * @return
-	 */
+	* Checks if the user's login is valid by first comparing the SSN
+	* to each manager in the list. If the SSN matches, it then checks
+	* the password. If both the SSN and password match, it returns true.
+	*
+	* @param ssn - The SSN of the manager.
+	* @param password - The password of the manager.
+	* @return true if the login is valid, false otherwise.
+	*/
 	private boolean userIsValid(String ssn, String password) {
 		boolean ssnValid = false;
 		boolean passValid = false;
@@ -139,10 +142,11 @@ public class App {
 	}
 	
 	/**
-	 * Gets a users String input and returns it
-	 * @param prompt
-	 * @return
-	 */
+	* Retrieves a user's string input and returns it.
+	*
+	* @param prompt - The message prompting the user for input.
+	* @return The user's string input.
+	*/
 	public static String getStringInput(String prompt) {
         Scanner scanner = new Scanner(System.in);
 
@@ -151,17 +155,17 @@ public class App {
     }
 	
 	/**
-	 * Validates the ssn the user inputed matches the desired input criteria
-	 * the criteria is as follows and is represented by the regular expression
-	 * used after sanitizing (removing all white spaces) the string 
-	 * 
-	 * ###-##-####
-	 * where #s represent digits
-	 * and -s represent dashes
-	 * 
-	 * @param ssn
-	 * @return 
-	 */
+	* Validates whether the user input for SSN matches the desired criteria.
+	* The criteria are as follows, represented by the regular expression
+	* applied after sanitizing (removing all white spaces) the string:
+	*
+	* ###-##-####
+	* where # represents a digit
+	* and - represents a dash
+	*
+	* @param ssn - The user-input SSN to be validated.
+	* @return true if the SSN matches the desired criteria, false otherwise.
+	*/
 	public static boolean validateSsnInput(String ssn) {
 		String sanitizedString = ssn.replaceAll("\\s+", "");
 		return sanitizedString.matches("\\d{3}-\\d{2}-\\d{4}");

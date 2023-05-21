@@ -12,26 +12,27 @@ public class Employee {
 	private static int IDNumber = 0;
 	
 	/**
-     * Default constructor for the Employee class.
-     * Initializes the employee with default values and increments the ID number.
-     * Calls the overloaded constructor to set the values
-     */
+	* Initializes the Employee object with default values and increments the ID number.
+	* Calls the overloaded constructor to set the attribute values.
+	* This is the default constructor for the Employee class.
+	*/
 	public Employee() {
 		// Set default values for class attributes
 		this("firstName", "lastName", "jobTitle", "000-00-0000", 0.0, 0);
 	}
 	
 	/**
-     * Overloaded constructor for the Employee class.
-     * Initializes the employee with the entered values and increments the ID number.
-     * The annual income is automatically calculated based on the hourly pay and weekly hours.
-     *
-     * @param fName       The first name of the employee.
-     * @param lName       The last name of the employee.
-     * @param jobTitle    The job title of the employee.
-     * @param hourlyPay   The hourly pay rate of the employee.
-     * @param weeklyHours The number of hours the employee works per week.
-     */
+	* Initializes the Employee object with the entered values and increments the ID number.
+	* The annual income is automatically calculated based on the hourly pay and weekly hours.
+	*
+	* @param fName - The first name of the employee.
+	* @param lName - The last name of the employee.
+	* @param jobTitle - The job title of the employee.
+	* @param hourlyPay - The hourly pay rate of the employee.
+	* @param weeklyHours - The number of hours the employee works per week.
+	*
+	* This is the overloaded constructor for the Employee class.
+	*/
 	public Employee(String fName, String lName, String jobTitle, 
 			String ssn, double hourlyPay, int weeklyHours) {
 		// Set the user defined values for class attributes
