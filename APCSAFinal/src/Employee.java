@@ -3,7 +3,7 @@ public class Employee {
 	private String fName;
 	private String lName;
 	private String jobTitle;
-	private String SSN;
+	private String ssn;
 	private double hourlyPay;
 	private double annualIncome;
 	private int weeklyHours;
@@ -33,14 +33,14 @@ public class Employee {
      * @param weeklyHours The number of hours the employee works per week.
      */
 	public Employee(String fName, String lName, String jobTitle, 
-			String SSN, double hourlyPay, int weeklyHours) {
+			String ssn, double hourlyPay, int weeklyHours) {
 		// Set the user defined values for class attributes
 		setfName(fName);
 		setlName(lName);
 		setJobTitle(jobTitle);
 		setHourlyPay(hourlyPay);
 		setWeeklyHours(weeklyHours);
-		setSSN(SSN);
+		setSSN(ssn);
 		setIDNumber(this.IDNumber);
 		
 		// Determine annual income based on the weekly hours and pay
@@ -113,12 +113,12 @@ public class Employee {
 		IDNumber = iDNumber;
 	}
 
-	public String getSSN() {
-		return SSN;
+	public String getSsn() {
+		return ssn;
 	}
 
-	public void setSSN(String sSN) {
-		SSN = sSN;
+	public void setSSN(String ssn) {
+		ssn = ssn;
 	}
 
 	public double getAnnualIncome() {
