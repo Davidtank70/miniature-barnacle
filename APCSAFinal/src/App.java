@@ -91,18 +91,29 @@ public class App {
 		// declare and initialize prompts
 		final String helloPrompt = "Welcome, please enter your credentials.";
 		final String userNamePrompt = "Please enter your ssn \"###-##-####\": ";
+		final String invalidSsn = "Please enter a valid ssn incuding all numbers and dashes";
 		final String passwordPrompt = "Please enter your password (ensure you type it properly): ";
 		final String invalidPassword = "Password invalid back to login...";
 		final String loginValid = "Login valid. Entering application.";
-		final String loginInvalid = "Login invalid. Exiting Epplication.";
+		final String loginInvalid = "Login invalid, back to login....";
 		
 		//  login process
 		System.out.println(helloPrompt);
 		
-		// get the users ssn and password
-		while (!validateSsnInput(ssn)) ssn = getStringInput(userNamePrompt);
+		// get the users ssn 
+		// if it is typed imporperly ask again until done right
+		while (!validSsnInput(ssn)) {
+			ssn = getStringInput(userNamePrompt);
+			if (!validSsnInput(ssn)) {
+				System.out.println(invalidSsn);
+			}
+		}
+		
+		// get the users password input
 		String password = getStringInput(passwordPrompt);
 		
+		// determine if the users ssn and password match
+		// any of the managers, if they do logon success.
 		if (userIsValid(ssn, password)) {
 			System.out.println(loginValid);
 			return true;
@@ -166,7 +177,7 @@ public class App {
 	* @param ssn - The user-input SSN to be validated.
 	* @return true if the SSN matches the desired criteria, false otherwise.
 	*/
-	public static boolean validateSsnInput(String ssn) {
+	public static boolean validSsnInput(String ssn) {
 		String sanitizedString = ssn.replaceAll("\\s+", "");
 		return sanitizedString.matches("\\d{3}-\\d{2}-\\d{4}");
 	}
