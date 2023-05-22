@@ -8,21 +8,38 @@ public class Manager extends Employee {
 	private int employeeCount;
 	private String securityQuestion;
 	private String securityAnswer;
-	private ArrayList<Emlpoyees> employeesManaged;
+	private String password;
+	private ArrayList<Employee> employeesManaged;
 	
 	
-	/*
-	 * 
-	 */
-	public Manager(int memberID, int SSN, double weeklyPay, String firstName, 
-				   String lastName, String jobTitle, int employeeCount, String securityQuestion,
-				   String securityAnswer, ArrayList<Employee> employeesManaged) {
+	public Manager() {
+		super();
+	}
+	
+	/**
+	* Initializes a manager object by using the super constructor
+	* from the Employee superclass to set the shared variables.
+	*
+	* @param fName - The first name of the manager.
+	* @param lName - The last name of the manager.
+	* @param jobTitle - The job title of the manager.
+	* @param ssn - The SSN of the manager.
+	* @param hourlyPay - The hourly pay rate of the manager.
+	* @param weeklyHours - The number of hours the manager works per week.
+	* @param securityQuestion - The security question for the manager's account.
+	* @param securityAnswer - The security answer for the manager's account.
+	* @param password - The password for the manager's account.
+	*
+	* This is the overloaded constructor for creating a manager.
+	*/
+	public Manager(String fName, String lName, String jobTitle, String ssn, double hourlyPay, 
+			int weeklyHours, String securityQuestion, String securityAnswer, String password) {
 		
-		super(memberID, SSN, weeklyPay, firstName, lastName, jobTitle);
-		setEmployeeCount(employeeCount);
+		super(fName, lName, jobTitle, ssn, hourlyPay, weeklyHours);
+		
 		setSecurityQuestion(securityQuestion);
 		setSecurityAnswer(securityAnswer);
-		setEmployeesManaged(employeesManaged);
+		setPassword(password);
 	}
 	
 	/*
@@ -38,8 +55,7 @@ public class Manager extends Employee {
 	public void viewEmployees() {
 		for (int i = 0; i < employeesManaged.size(); i++) {
 			Employee employee = employeesManaged.get(i);
-			
-			System.out.println(employee.getFirstName() + " " + employee.getLastName() + ", SSN: " + employee.getSSN());
+			System.out.println(employee.getfName() + " " + employee.getlName() + ", SSN: " + employee.getSsn());
 		}
 	}
 	
@@ -51,80 +67,54 @@ public class Manager extends Employee {
 	}
 	
 	/*
-	 * 
+	 * TODO: write javadoc for method
 	 */
-	public ArrayList<Employees> offTaskEmployees() {
-		for () {
-			
-		}
+	public ArrayList<Employee> offTaskEmployees() {
+		return this.employeesManaged; // change this (only for compilation)
 	}
 	
 	/*
 	 * 
 	 */
 	public void viewEmployeesInfo(Employee employee) {
-		String info = "FName: " + employee.getFirstName() + "\n"
-					+ "Lname: " + employee.getLastName() + "\n"
+		String info = "FName: " + employee.getfName() + "\n"
+					+ "Lname: " + employee.getlName() + "\n"
 					+ "Title: " + employee.getJobTitle() + "\n"
-					+ "Pay: " + employee.getWeeklyPay() + "\n"
-					+ "SSN: " + employee.getSSN() + "\n"
-					+ "MemID: " + employee.getMemberID() + "\n";
-		
+					+ "Annual Pay: " + employee.getAnnualIncome() + "\n"
+					+ "SSN: " + employee.getSsn() + "\n"
+					+ "MemID: " + employee.getIDNumber() + "\n";
 		System.out.println(info);
 	}
 
-	/*
-	 * 
-	 */
-	public int getEmployeeCount() {
-		return this.employeeCount;
+	// Getter and setter methods
+	public String getPassword() {
+		return password;
 	}
 
-	/*
-	 * 
-	 */
-	public void setEmployeeCount(int employeeCount) {
-		this.employeeCount = employeeCount;
-	}
-	
-	/*
-	 * 
-	 */
-	public String getSecurityQuestion() {
-		return this.securityQuestion;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	/*
-	 * 
-	 */
-	public void setSecurityQuestion(String securityQuestion) {
-		this.securityQuestion = securityQuestion;
-	}
-
-	/*
-	 * 
-	 */
 	public String getSecurityAnswer() {
-		return this.securityAnswer;
+		return securityAnswer;
 	}
 
-	/*
-	 * 
-	 */
 	public void setSecurityAnswer(String securityAnswer) {
 		this.securityAnswer = securityAnswer;
 	}
+
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
 	
-	/*
-	 * 
-	 */
 	public ArrayList<Employee> getEmployeesManaged() {
 		return this.employeesManaged;
 	}
 	
-	/*
-	 * 
-	 */
 	public void setEmployeesManaged(ArrayList<Employee> employeesManaged) {
 		this.employeesManaged = employeesManaged;
 	}
