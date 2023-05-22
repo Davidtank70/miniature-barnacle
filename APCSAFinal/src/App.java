@@ -3,14 +3,18 @@ import java.util.*;
 
 public class App {
 	private ArrayList<Manager> managerList = new ArrayList<Manager>();
+	private Manager activeManager;
 	
 	public static void main(String[] args) {
 		// Ensure at least 1 manager.
 		App app = new App();
 		Manager masterKey = new Manager("Joe", "Bill", "Admin", "123-45-6789", 25.5, 40, "What color is the sky?", "Blue", "Eclipse");
         app.addManager(masterKey);
-		app.loginProcess();
-		app.application();
+        
+        if (app.loginProcess()) {
+        	
+    		app.application();
+        }
 	}
 	
 	private void application() {
@@ -114,7 +118,7 @@ public class App {
 		
 		// determine if the users ssn and password match
 		// any of the managers, if they do logon success.
-		if (userIsValid(ssn, password)) {
+		if (managerIsValid(ssn, password)) {
 			System.out.println(loginValid);
 			return true;
 		} else {
@@ -124,18 +128,28 @@ public class App {
 		return false;
 		
 	}
-
+	
+	private Manager setActiveManager(String ssn) {
+		for (Manager manager : managerList) {
+			if (manager.getSsn() == ssn) {
+				setActiveManager(manager);
+			}
+		}
+		return null;
+	}
 
 	/**
-	* Checks if the user's login is valid by first comparing the SSN
-	* to each manager in the list. If the SSN matches, it then checks
-	* the password. If both the SSN and password match, it returns true.
-	*
-	* @param ssn - The SSN of the manager.
-	* @param password - The password of the manager.
-	* @return true if the login is valid, false otherwise.
-	*/
-	private boolean userIsValid(String ssn, String password) {
+	 * Helper method for logging in
+	 * 
+	 * Checks if the user's login is valid by first comparing the SSN
+	 * to each manager in the list. If the SSN matches, it then checks
+	 * the password. If both the SSN and password match, it returns true.
+	 *
+	 * @param ssn - The SSN of the manager.
+	 * @param password - The password of the manager.
+	 * @return true if the login is valid, false otherwise.
+	 */
+	private boolean managerIsValid(String ssn, String password) {
 		boolean ssnValid = false;
 		boolean passValid = false;
 		
@@ -147,6 +161,10 @@ public class App {
 				}
 				break;
 			}
+		}
+		
+		if (ssnValid && passValid) {
+			setActiveManager(ssn);
 		}
 		
 		return ssnValid && passValid;
@@ -186,8 +204,16 @@ public class App {
 	 * Adds a manager to the managerList given a manager object
 	 * @param manager
 	 */
-	public void addManager (Manager manager) {
+	public void addManager(Manager manager) {
 		this.managerList.add(manager);
+	}
+
+	public Manager getActiveManager() {
+		return activeManager;
+	}
+
+	public void setActiveManager(Manager activeManager) {
+		this.activeManager = activeManager;
 	}
 	
 	
