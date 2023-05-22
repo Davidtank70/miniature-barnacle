@@ -43,14 +43,14 @@ public class Manager extends Employee {
 	}
 	
 	/*
-	 * 
+	 * TODO: write a javadoc
 	 */
 	public void addEmployee(Employee employee) {
 		this.employeesManaged.add(employee);
 	}
 	
 	/*
-	 * 
+	 * TODO: write a javadoc
 	 */
 	public void viewEmployees() {
 		for (int i = 0; i < employeesManaged.size(); i++) {
@@ -60,7 +60,7 @@ public class Manager extends Employee {
 	}
 	
 	/*
-	 * 
+	 * TODO: write a javadoc
 	 */
 	public void displayPay(int pay) {
 		
@@ -74,16 +74,27 @@ public class Manager extends Employee {
 	}
 	
 	/*
-	 * 
+	 * TODO: write a javadoc for this method
 	 */
-	public void viewEmployeesInfo(Employee employee) {
-		String info = "FName: " + employee.getfName() + "\n"
-					+ "Lname: " + employee.getlName() + "\n"
-					+ "Title: " + employee.getJobTitle() + "\n"
-					+ "Annual Pay: " + employee.getAnnualIncome() + "\n"
-					+ "SSN: " + employee.getSsn() + "\n"
-					+ "MemID: " + employee.getIDNumber() + "\n";
-		System.out.println(info);
+	public void viewAllEmployeeInfo() {
+		
+	}
+	
+	
+	/**
+	 * Helper method to see if an employee with the specified
+	 * IDNumber is in the list of managed employees.
+	 * @param IDNumber
+	 * @return true or false if the employee exist
+	 */
+	public boolean employeeExists(int IDNumber) {
+		boolean foundMatching = false;
+		for (Employee employee : employeesManaged) {
+			if (employee.getIDNumber() == IDNumber) {
+				foundMatching = true;
+			}
+		}
+		return foundMatching;
 	}
 
 	// Getter and setter methods

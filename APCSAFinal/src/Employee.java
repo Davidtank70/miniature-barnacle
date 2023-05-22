@@ -51,6 +51,14 @@ public class Employee {
 		Employee.IDNumber++;
 	}
 	
+	public String toString() {
+		String retString = "Name : " + getfName() + " " + getlName() + " Title: " + getJobTitle() + 
+				"\n\tSalary: " + getAnnualIncome() + 
+				"\n\tSSN: " + getSsn() + 
+				"\n\tEmployeeID: " + getIDNumber(); 
+		return retString;
+	}
+	
 	
 	// =========================
 	// Getter and setter methods
