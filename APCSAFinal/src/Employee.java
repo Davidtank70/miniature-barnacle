@@ -7,6 +7,7 @@ public class Employee {
 	private double hourlyPay;
 	private double annualIncome;
 	private int weeklyHours;
+	private boolean isOnTask; //This is temporary, used for offTaskEmployees() method
 	
 	// static instance variable
 	private static int IDNumber = 0;
@@ -51,11 +52,14 @@ public class Employee {
 		Employee.IDNumber++;
 	}
 	
+	/*
+	 * 
+	 */
 	public String toString() {
-		String retString = "Name : " + getfName() + " " + getlName() + " Title: " + getJobTitle() + 
-				"\n\tSalary: " + getAnnualIncome() + 
-				"\n\tSSN: " + getSsn() + 
-				"\n\tEmployeeID: " + getIDNumber(); 
+		String retString = getIDNumber() + ".) Name: " + getfName() + " " + getlName()
+				+ "\n\tTitle: " + getJobTitle()
+				+ "\n\tSalary: " + getAnnualIncome()
+				+ "\n\tSSN: " + getSsn();
 		return retString;
 	}
 	
@@ -132,5 +136,16 @@ public class Employee {
 
 	public double getAnnualIncome() {
 		return annualIncome;
+	}
+
+	/*
+	 * The following two methods are temporary, used in offTaskEmployees() method
+	 */
+	public boolean isOnTask() {
+		return isOnTask;
+	}
+
+	public void setOnTask(boolean isOnTask) {
+		this.isOnTask = isOnTask;
 	}
 }

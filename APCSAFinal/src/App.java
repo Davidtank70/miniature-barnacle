@@ -3,6 +3,7 @@ import java.util.*;
 
 public class App {
 	private ArrayList<Manager> managerList = new ArrayList<Manager>();
+	private Manager workingManager; //This is temporary, used in viewEmployees() method
 	
 	public static void main(String[] args) {
 		// Ensure at least 1 manager.

@@ -45,41 +45,31 @@ public class Manager extends Employee {
 	/*
 	 * TODO: write a javadoc
 	 */
-	public void addEmployee(Employee employee) {
-		this.employeesManaged.add(employee);
-	}
-	
-	/*
-	 * TODO: write a javadoc
-	 */
 	public void viewEmployees() {
 		for (int i = 0; i < employeesManaged.size(); i++) {
 			Employee employee = employeesManaged.get(i);
-			System.out.println(employee.getfName() + " " + employee.getlName() + ", SSN: " + employee.getSsn());
+			System.out.println(i + 1 + ".) " + employee.getfName() + " " + employee.getlName() + ":\n\tSalary: $"
+					+ employee.getAnnualIncome() + "\n\tJob title: " + employee.getJobTitle() + "\n\tID Number: " 
+					+ employee.getIDNumber() + "\n");
 		}
-	}
-	
-	/*
-	 * TODO: write a javadoc
-	 */
-	public void displayPay(int pay) {
-		
 	}
 	
 	/*
 	 * TODO: write javadoc for method
 	 */
 	public ArrayList<Employee> offTaskEmployees() {
-		return this.employeesManaged; // change this (only for compilation)
-	}
-	
-	/*
-	 * TODO: write a javadoc for this method
-	 */
-	public void viewAllEmployeeInfo() {
+		ArrayList<Employee> retArr = new ArrayList<>();
 		
-	}
-	
+		for (int i = 0; i < employeesManaged.size(); i++) {
+			Employee employee = employeesManaged.get(i);
+			if (!employee.isOnTask()) {
+				retArr.add(employee);
+			}
+		}
+		
+		System.out.println("You have " + retArr.size() + " employees off task.");
+		return retArr;
+	}	
 	
 	/**
 	 * Helper method to see if an employee with the specified
@@ -97,7 +87,35 @@ public class Manager extends Employee {
 		return foundMatching;
 	}
 
-	// Getter and setter methods
+	/*
+	 * TODO: Write javadoc
+	 */
+	public String toString() {
+		String retString = super.toString()
+				+ "\n\tSecurity Question: " + getSecurityQuestion()
+				+ "\n\tSecurity Answer: " + getSecurityAnswer()
+				+ "\n\tPassword: " + getPassword()
+				+ "\n\t# Employees Managed: " + getEmployeesManaged().size();
+		return retString;
+	}
+	
+	/*
+	 * Displays all information about an employee in string format
+	 */
+	public void viewAllEmployeeInfo(Employee employee) {
+		System.out.println(employee.toString() + "\n");
+	}
+	
+	/*
+	 * TODO: write a javadoc
+	 */
+	public void addEmployee(Employee employee) {
+		this.employeesManaged.add(employee);
+	}
+	
+	/*
+	 * Getter and setter methods to work with class variables
+	 */
 	public String getPassword() {
 		return password;
 	}
