@@ -122,8 +122,8 @@ public class Employee {
 		return IDNumber;
 	}
 
-	public void setIDNumber(int IDNumber) {
-		IDNumber = IDNumber;
+	public void setIDNumber(int iDNumber) {
+		IDNumber = iDNumber;
 	}
 
 	public String getSsn() {
