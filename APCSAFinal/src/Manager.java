@@ -43,18 +43,6 @@ public class Manager extends Employee {
 	}
 	
 	/*
-	 * TODO: write a javadoc
-	 */
-	public void viewEmployees() {
-		for (int i = 0; i < employeesManaged.size(); i++) {
-			Employee employee = employeesManaged.get(i);
-			System.out.println(i + 1 + ".) " + employee.getfName() + " " + employee.getlName() + ":\n\tSalary: $"
-					+ employee.getAnnualIncome() + "\n\tJob title: " + employee.getJobTitle() + "\n\tID Number: " 
-					+ employee.getIDNumber() + "\n");
-		}
-	}
-	
-	/*
 	 * TODO: write javadoc for method
 	 */
 	public ArrayList<Employee> offTaskEmployees() {
@@ -87,8 +75,11 @@ public class Manager extends Employee {
 		return foundMatching;
 	}
 
-	/*
-	 * TODO: Write javadoc
+	/**
+	 * Overrides default toString method to return a string containing
+	 * useful information about a manager object.
+	 * 
+	 * @return A string containing all information about a manager
 	 */
 	public String toString() {
 		String retString = super.toString()
@@ -100,14 +91,7 @@ public class Manager extends Employee {
 	}
 	
 	/*
-	 * Displays all information about an employee in string format
-	 */
-	public void viewAllEmployeeInfo(Employee employee) {
-		System.out.println(employee.toString() + "\n");
-	}
-	
-	/*
-	 * TODO: write a javadoc
+	 * Adds a new employee to the manager's employeesManaged array
 	 */
 	public void addEmployee(Employee employee) {
 		this.employeesManaged.add(employee);

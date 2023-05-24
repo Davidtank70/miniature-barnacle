@@ -56,7 +56,7 @@ public class Employee {
 	 * 
 	 */
 	public String toString() {
-		String retString = getIDNumber() + ".) Name: " + getfName() + " " + getlName()
+		String retString = "ID - " + getIDNumber() + ".) Name: " + getfName() + " " + getlName()
 				+ "\n\tTitle: " + getJobTitle()
 				+ "\n\tSalary: " + getAnnualIncome()
 				+ "\n\tSSN: " + getSsn();
@@ -139,7 +139,8 @@ public class Employee {
 	}
 
 	/*
-	 * The following two methods are temporary, used in offTaskEmployees() method
+	 * The following two methods are temporary until a better solution is found.
+	 * Used in offTaskEmployees() method
 	 */
 	public boolean isOnTask() {
 		return isOnTask;

@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.*;
 
+/**
+ * @author 204924
+ *
+ */
 public class App {
 	private ArrayList<Manager> managerList = new ArrayList<Manager>();
 	private Manager workingManager; //This is temporary, used in viewEmployees() method
@@ -23,15 +27,65 @@ public class App {
 		// upon selection of the menu option run the associated method
 	}
 	
+	/*
+	 * Displays preview of all employee's information from a manager's array, then can
+	 * display all of a specific employee's information based on a chosen ID
+	 */
 	public void viewEmployees() {
+		final String inputPrompt = "Which ID number would you like to view all of the details for? (or -1 to exit): ";
+		final String errorMsg = "ID could not be found or an incorrect input was entered. Please enter something valid.";
 		displayEmployeePreviews();
 		
 		while (true) {
-			System.out.println("Would you like to view a specific employees info?");
+			String usrInput = getStringInput(inputPrompt);
+			Employee employee = getEmployeeByID(usrInput);
+			
+			if (usrInput.equals("-1")) {
+				break;
+			} else if (employee != null) {
+				employee.toString();
+				break;
+			} else  {
+				System.out.println(errorMsg);
+			}
+		}
+	}
+	
+	/**
+	 * Finds and returns an employee by using their ID
+	 * 
+	 * @param employeeID - An employee's ID as a string
+	 * @return The employee that was found by searching the array, or null otherwise
+	 */
+	public Employee getEmployeeByID(String employeeID) {
+		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		
+		for (int i = 0; i < employeeArr.size(); i++) {
+			if (Integer.toString(employeeArr.get(i).getIDNumber()).equals(employeeID)) {
+				return employeeArr.get(i);
+			}
 		}
 		
-		// TODO for every employee under the signed in manager print their associated information
-		// in a format of "fName", "lName", "Salary"$, "jobTitle", "EmployeeID" for each employee
+		return null;
+	}
+	
+	/**
+	 * Determines if an employeeID is within a manager's employee array
+	 * 
+	 * @param employeeID - An employee's ID as a string
+	 * @return true if the emlpoyeeID was found within the manager's array, false otherwise
+	 */
+	public boolean employeeIDFound(String employeeID) {
+		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		boolean retBoolean = false;
+		
+		for (int i = 0; i < employeeArr.size(); i++) {
+			if (Integer.toString(employeeArr.get(i).getIDNumber()).equals(employeeID)) {
+				retBoolean = true;
+			}
+		}
+		
+		return retBoolean;
 	}
 	
 	/*
