@@ -3,6 +3,7 @@ import java.util.*;
 
 public class App {
 	private ArrayList<Manager> managerList = new ArrayList<Manager>();
+	private ArrayList<Integer> pagesVisited = new ArrayList<Integer>();
 	private Manager workingManager; //This is temporary, used in viewEmployees() method
 	
 	public static void main(String[] args) {
@@ -24,13 +25,35 @@ public class App {
 	}
 	
 	/*
-	 * Displays preview of all employee's information from a manager's array, then can
-	 * display all of a specific employee's information based on a chosen ID
+	 * Adds a page to the pagesVisited array list
 	 */
-	public void viewEmployees() {
+	private void addPage(int page) {
+		this.getPagesVisited().add(page);
+	}
+	
+	/*
+	 * Displays basic information about the employees under a manager
+	 */
+	public void viewEmployees() { // 1 on action diagram
+		addPage(1);
+		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		
+		for (int i = 0; i < employeeArr.size(); i++) {
+			Employee employee = employeeArr.get(i);
+			System.out.println(i + 1 + ".) " + employee.getfName() + " " + employee.getlName() + ":\n\tSalary: $"
+					+ employee.getAnnualIncome() + "\n\tJob title: " + employee.getJobTitle() + "\n\tID Number: " 
+					+ employee.getIDNumber() + "\n");
+		}
+	}
+	
+	/*
+	 * Views all info on an employee that was found by searching through user IDs,
+	 * or prints an error message of invalid input is entered
+	 */
+	private void viewSpecificEmployee() { // 2 on action diagram
+		addPage(2);
 		final String inputPrompt = "Which ID number would you like to view all of the details for? (or -1 to exit): ";
 		final String errorMsg = "ID could not be found or an incorrect input was entered. Please enter something valid.";
-		displayEmployeePreviews();
 		
 		while (true) {
 			String usrInput = getStringInput(inputPrompt);
@@ -53,7 +76,7 @@ public class App {
 	 * @param employeeID - An employee's ID as a string
 	 * @return The employee that was found by searching the array, or null otherwise
 	 */
-	public Employee getEmployeeByID(String employeeID) {
+	private Employee getEmployeeByID(String employeeID) {
 		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
 		
 		for (int i = 0; i < employeeArr.size(); i++) {
@@ -65,57 +88,20 @@ public class App {
 		return null;
 	}
 	
-	/**
-	 * Determines if an employeeID is within a manager's employee array
-	 * 
-	 * @param employeeID - An employee's ID as a string
-	 * @return true if the emlpoyeeID was found within the manager's array, false otherwise
-	 */
-	public boolean employeeIDFound(String employeeID) {
-		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
-		boolean retBoolean = false;
-		
-		for (int i = 0; i < employeeArr.size(); i++) {
-			if (Integer.toString(employeeArr.get(i).getIDNumber()).equals(employeeID)) {
-				retBoolean = true;
-			}
-		}
-		
-		return retBoolean;
-	}
-	
-	/*
-	 * Displays some information for each employee in a manager's list
-	 */
-	public void displayEmployeePreviews() {
-		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
-		
-		for (int i = 0; i < employeeArr.size(); i++) {
-			Employee employee = employeeArr.get(i);
-			System.out.println(i + 1 + ".) " + employee.getfName() + " " + employee.getlName() + ":\n\tSalary: $"
-					+ employee.getAnnualIncome() + "\n\tJob title: " + employee.getJobTitle() + "\n\tID Number: " 
-					+ employee.getIDNumber() + "\n");
-		}
-	}
-	
-	private void viewSpecificEmployee() { // 2 on action diagram
-		// TODO ask if the user would like to see all employees under them
-		// if so run viewEmployees()
-		// then ask for the employee ID of the employee they would like to view
-		// search all employees for this ID and if one is found display all associated info.
-	}
-	
 	private void viewCompanyStats() { // 3 on action diagram
+		addPage(3);
 		// TODO tally the total company salaries and calculate tax information
 		// also calculate any and all other statistics that come to mind
 	}
 	
 	private void promoteEmployee() { // 4 on action diagram
+		addPage(4);
 		// TODO change the employee productiveness stat within a pseudo-random range
 		// depending on how big of a promotion they recieved, (%increase of their pay)
 	}
 	
 	private void hireEmployee() { // 5 on action diagram
+		addPage(5);
 		// TODO within certain conditions generate an employee to be hired
 		// ask for confirmation before hiring employee, also add an option
 		// to hire up to 5 at a time (recommended to go into employee class
@@ -124,18 +110,49 @@ public class App {
 	}
 	
 	private void fireEmployee() { // 6 on action diagram
+		addPage(6);
 		// TODO remove an employee from the managers employee list
 	}
 	
+	/*
+	 * Displays goodbye message to the working manager then closes program
+	 * 
+	 * This can be made more complicated, wasn't really sure if it was supposed to be this simple.
+	 * The pages visited thing can also be deleted if need be, was just something to code and add 
+	 * functionality.
+	 */
 	private void exitProgram() { // 7 on action diagram
-		// TODO exit the program and display a goodbye message
+		String goodbyeMsg = "\n\nGoodbye, " + this.workingManager.getfName()
+				+ ".\nYou visited the following pages in this order:\n"
+				+ getPageOrder();
+		System.out.print(goodbyeMsg);
+		System.exit(0);
+	}
+	
+	/**
+	 * Gets the order of pages that the user visited during their time using
+	 * the program
+	 * 
+	 * @return A string containing the pages visited
+	 */
+	private String getPageOrder() {
+		ArrayList<Integer> pageArr = getPagesVisited();
+		String retString = "[" + pageArr.get(0);
+		
+		for (int i = 1; i < pageArr.size(); i++) {
+			retString += ", " + pageArr.get(i);
+		}
+		
+		return retString + "]";
 	}
 	
 	private void sendToLogin() { // 8 on action diagram
+		addPage(8);
 		// TODO send the user to login and display a message stating this happened
 	}
 	
 	private void addNewManager() { // 9 on action diagram
+		addPage(9);
 		// TODO add a new manager to the manager list
 		// recommended to go into manager class and make a method that will
 		// prompt for all associated manager info and then call the overloaded
@@ -262,15 +279,13 @@ public class App {
 	}
 
 	/*
-	 * The following two methods are temporary, used in viewEmployees() method
+	 * The following two methods may be temporary
 	 */
 	public Manager getWorkingManager() {
 		return workingManager;
 	}
 
-	public void setWorkingManager(Manager workingManager) {
-		this.workingManager = workingManager;
+	public ArrayList<Integer> getPagesVisited() {
+		return pagesVisited;
 	}
-	
-	
 }
