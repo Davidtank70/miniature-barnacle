@@ -1,10 +1,6 @@
 import java.util.ArrayList;
 import java.util.*;
 
-/**
- * @author 204924
- *
- */
 public class App {
 	private ArrayList<Manager> managerList = new ArrayList<Manager>();
 	private Manager workingManager; //This is temporary, used in viewEmployees() method
