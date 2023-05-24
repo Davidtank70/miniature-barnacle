@@ -23,9 +23,29 @@ public class App {
 		// upon selection of the menu option run the associated method
 	}
 	
-	private void viewEmployees() { // 1 on action diagram
+	public void viewEmployees() {
+		displayEmployeePreviews();
+		
+		while (true) {
+			System.out.println("Would you like to view a specific employees info?");
+		}
+		
 		// TODO for every employee under the signed in manager print their associated information
 		// in a format of "fName", "lName", "Salary"$, "jobTitle", "EmployeeID" for each employee
+	}
+	
+	/*
+	 * Displays some information for each employee in a manager's list
+	 */
+	public void displayEmployeePreviews() {
+		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		
+		for (int i = 0; i < employeeArr.size(); i++) {
+			Employee employee = employeeArr.get(i);
+			System.out.println(i + 1 + ".) " + employee.getfName() + " " + employee.getlName() + ":\n\tSalary: $"
+					+ employee.getAnnualIncome() + "\n\tJob title: " + employee.getJobTitle() + "\n\tID Number: " 
+					+ employee.getIDNumber() + "\n");
+		}
 	}
 	
 	private void viewSpecificEmployee() { // 2 on action diagram
@@ -189,6 +209,17 @@ public class App {
 	 */
 	public void addManager (Manager manager) {
 		this.managerList.add(manager);
+	}
+
+	/*
+	 * The following two methods are temporary, used in viewEmployees() method
+	 */
+	public Manager getWorkingManager() {
+		return workingManager;
+	}
+
+	public void setWorkingManager(Manager workingManager) {
+		this.workingManager = workingManager;
 	}
 	
 	
