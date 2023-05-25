@@ -292,6 +292,7 @@ public class App {
 	
 	/**
 	 * Adds a manager to the managerList given a manager object
+	 * 
 	 * @param manager
 	 */
 	public void addManager (Manager manager) {
