@@ -6,6 +6,9 @@ public class App {
 	private ArrayList<Integer> pagesVisited = new ArrayList<Integer>();
 	private Manager workingManager; //This is temporary, used in viewEmployees() method
 	
+	//Employer FICA tax rate for 2023, may be temporary
+	private static final double TAX_RATE = 0.0765;
+	
 	public static void main(String[] args) {
 		// Ensure at least 1 manager.
 		App app = new App();
@@ -78,20 +81,77 @@ public class App {
 	 */
 	private Employee getEmployeeByID(String employeeID) {
 		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		Employee retEmployee = null;
 		
 		for (int i = 0; i < employeeArr.size(); i++) {
 			if (Integer.toString(employeeArr.get(i).getIDNumber()).equals(employeeID)) {
-				return employeeArr.get(i);
+				retEmployee = employeeArr.get(i);
 			}
 		}
 		
-		return null;
+		return retEmployee;
 	}
 	
+	/*
+	 * Prints company stats like total company salaries
+	 */
 	private void viewCompanyStats() { // 3 on action diagram
 		addPage(3);
+		double employeeSalaries = getTotalEmployeeSalaries();
+		double managerSalaries = getTotalManagerSalares();
+		double companySalaries = employeeSalaries + managerSalaries;
+		String output = "Total Normal Employee Salaries Pre-Tax: %.2f"
+				+ "Total Manager Salaries Pre-Tax: %.2f"
+				+ "Total Worker Salaries Pre-Tax: %.2f%n%n"
+				+ "---------------------------------------------"
+				+ "Total Normal Employee Salaries Post-Tax: %.2f"
+				+ "Total Manager Salaries Post-Tax: %.2f"
+				+ "Total Worker Salaries Post-Tax: %.2f%n%n";
+		System.out.printf(output, employeeSalaries, managerSalaries, companySalaries, 
+				removeTax(employeeSalaries), removeTax(managerSalaries), removeTax(companySalaries));
 		// TODO tally the total company salaries and calculate tax information
 		// also calculate any and all other statistics that come to mind
+	}
+	
+	/**
+	 * Retrieves and returns the total salaries of all manager's employees
+	 * 
+	 * @return A double containing the total salaries of all manager's employees
+	 */
+	public double getTotalEmployeeSalaries() {
+		double total = 0.0;
+		
+		for (int i = 0; i < getManagerList().size(); i++) {
+			for (int k = 0; k < getManagerList().get(i).getEmployeesManaged().size(); i++) {
+				total += getManagerList().get(i).getEmployeesManaged().get(k).getAnnualIncome();
+			}
+		}
+		
+		return total;
+	}
+	
+	/**
+	 * Retrieves and returns the total salaries of all managers
+	 * 
+	 * @return A double containing the total salaries of all managers
+	 */
+	public double getTotalManagerSalares() {
+		double total = 0.0;
+		
+		for (int i = 0; i < getManagerList().size(); i++) {
+			total += getManagerList().get(i).getAnnualIncome();
+		}
+		
+		return total;
+	}
+	
+	/**
+	 * Subtracts the total tax from the salary
+	 * 
+	 * @return A double with the tax removed from the salary
+	 */
+	public double removeTax(double salary) {
+		return salary - (salary * TAX_RATE);
 	}
 	
 	private void promoteEmployee() { // 4 on action diagram
@@ -122,10 +182,9 @@ public class App {
 	 * functionality.
 	 */
 	private void exitProgram() { // 7 on action diagram
-		String goodbyeMsg = "\n\nGoodbye, " + getWorkingManager().getfName()
-				+ ".\nYou visited the following pages in this order:\n"
-				+ getPageOrder();
-		System.out.print(goodbyeMsg);
+		String goodbyeMsg = " %n%nGoodbye, %s.%nYou visited " 
+					+ "the following pages in this order:%n%s";
+		System.out.printf(goodbyeMsg, getWorkingManager().getfName(), getPageOrder());
 		System.exit(0);
 	}
 	
