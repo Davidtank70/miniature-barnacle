@@ -102,7 +102,7 @@ public class App {
 		double companySalaries = employeeSalaries + managerSalaries;
 		String output = "Total Normal Employee Salaries Pre-Tax: %.2f"
 				+ "Total Manager Salaries Pre-Tax: %.2f"
-				+ "Total Worker Salaries Pre-Tax: %.2f%n%n"
+				+ "Total Worker Salaries Pre-Tax: %.2f%n"
 				+ "---------------------------------------------"
 				+ "Total Normal Employee Salaries Post-Tax: %.2f"
 				+ "Total Manager Salaries Post-Tax: %.2f"
