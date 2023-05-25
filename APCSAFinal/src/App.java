@@ -28,7 +28,7 @@ public class App {
 	 * Adds a page to the pagesVisited array list
 	 */
 	private void addPage(int page) {
-		this.getPagesVisited().add(page);
+		getPagesVisited().add(page);
 	}
 	
 	/*
@@ -122,7 +122,7 @@ public class App {
 	 * functionality.
 	 */
 	private void exitProgram() { // 7 on action diagram
-		String goodbyeMsg = "\n\nGoodbye, " + this.workingManager.getfName()
+		String goodbyeMsg = "\n\nGoodbye, " + getWorkingManager().getfName()
 				+ ".\nYou visited the following pages in this order:\n"
 				+ getPageOrder();
 		System.out.print(goodbyeMsg);
@@ -227,7 +227,7 @@ public class App {
 		boolean ssnValid = false;
 		boolean passValid = false;
 		
-		for (Manager manager : this.managerList) {
+		for (Manager manager : getManagerList()) {
 			if (manager.getSsn().equals(ssn)) {
 				ssnValid = true;
 				if (manager.getPassword().equals(password)) {
@@ -254,6 +254,26 @@ public class App {
     }
 	
 	/**
+	 * Retrieves a user's double input and returns it.
+	 * 
+	 * @param prompt - The message prompting the user for input.
+	 * @return The user's double input
+	 */
+	public static double getDoubleInput(String prompt) {
+		return Double.parseDouble(getStringInput(prompt));
+	}
+	
+	/**
+	 * Retrieves a user's int input and returns it.
+	 * 
+	 * @param prompt - The message prompting the user for input.
+	 * @return The user's int input
+	 */
+	public static int getIntInput(String prompt) {
+		return Integer.parseInt(getStringInput(prompt));
+	}
+	
+	/**
 	* Validates whether the user input for SSN matches the desired criteria.
 	* The criteria are as follows, represented by the regular expression
 	* applied after sanitizing (removing all white spaces) the string:
@@ -275,17 +295,25 @@ public class App {
 	 * @param manager
 	 */
 	public void addManager (Manager manager) {
-		this.managerList.add(manager);
+		getManagerList().add(manager);
 	}
 
-	/*
-	 * The following two methods may be temporary
+	/**
+	 * Getters used to get the value of class variables
+	 * 
+	 * Some of the following methods may be temporary
+	 * 
+	 * @return The value of a class level variable
 	 */
-	public Manager getWorkingManager() {
+	private Manager getWorkingManager() {
 		return workingManager;
 	}
 
-	public ArrayList<Integer> getPagesVisited() {
+	private ArrayList<Integer> getPagesVisited() {
 		return pagesVisited;
+	}
+
+	private ArrayList<Manager> getManagerList() {
+		return managerList;
 	}
 }

@@ -52,8 +52,11 @@ public class Employee {
 		Employee.IDNumber++;
 	}
 	
-	/*
+	/**
+	 * Overrides default toString method to return a string containing
+	 * useful information about an employee object.
 	 * 
+	 * @return A string containing all information about an employee.
 	 */
 	public String toString() {
 		String retString = "ID - " + getIDNumber() + ".) Name: " + getfName() + " " + getlName()

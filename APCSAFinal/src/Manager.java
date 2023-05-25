@@ -42,8 +42,11 @@ public class Manager extends Employee {
 		setPassword(password);
 	}
 	
-	/*
-	 * TODO: write javadoc for method
+	/**
+	 * Prints how many off task employees there are and adds them
+	 * to an array.
+	 * 
+	 * @return An array containing all off task employees
 	 */
 	public ArrayList<Employee> offTaskEmployees() {
 		ArrayList<Employee> retArr = new ArrayList<>();
@@ -62,6 +65,7 @@ public class Manager extends Employee {
 	/**
 	 * Helper method to see if an employee with the specified
 	 * IDNumber is in the list of managed employees.
+	 * 
 	 * @param IDNumber
 	 * @return true or false if the employee exist
 	 */
@@ -91,14 +95,16 @@ public class Manager extends Employee {
 	}
 	
 	/*
-	 * Adds a new employee to the manager's employeesManaged array
+	 * Adds a new employee to the manager's employeesManaged array.
 	 */
 	public void addEmployee(Employee employee) {
 		this.employeesManaged.add(employee);
 	}
 	
-	/*
-	 * Getter and setter methods to work with class variables
+	/**
+	 * Getter and setter methods to work with class variables.
+	 * 
+	 * @return The value of a class level variable.
 	 */
 	public String getPassword() {
 		return password;
