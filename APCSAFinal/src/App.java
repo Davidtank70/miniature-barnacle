@@ -69,11 +69,7 @@ public class App {
 	}
 	
 	private void addNewManager() { // 9 on action diagram
-		// TODO add a new manager to the manager list
-		// recommended to go into manager class and make a method that will
-		// prompt for all associated manager info and then call the overloaded
-		// constructor using that info to make a manager and then add that manager to 
-		// to the manager list
+		addManager(Manager.managerCreationWizzard());
 	}
 	
 	/**
@@ -129,6 +125,8 @@ public class App {
 		
 	}
 	
+
+	
 	private Manager setActiveManager(String ssn) {
 		for (Manager manager : managerList) {
 			if (manager.getSsn() == ssn) {
@@ -178,9 +176,20 @@ public class App {
 	*/
 	public static String getStringInput(String prompt) {
         Scanner scanner = new Scanner(System.in);
-
         System.out.print(prompt);
         return scanner.nextLine();
+    }
+	
+	/**
+	* Retrieves a user's string input and returns it.
+	*
+	* @param prompt - The message prompting the user for input.
+	* @return The user's string input.
+	*/
+	public static double getDoubleInput(String prompt) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print(prompt);
+        return scanner.nextDouble();
     }
 	
 	/**
