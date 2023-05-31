@@ -4,6 +4,10 @@ import java.util.*;
 public class App {
 	private ArrayList<Manager> managerList = new ArrayList<Manager>();
 	private Manager activeManager;
+	private ArrayList<Integer> pagesVisited = new ArrayList<Integer>();
+	
+	//Employer FICA tax rate for 2023, may be temporary
+	private static final double TAX_RATE = 0.0765;
 	
 	public static void main(String[] args) {
 		// Ensure at least 1 manager.
@@ -26,29 +30,141 @@ public class App {
 		// upon selection of the menu option run the associated method
 	}
 	
-	private void viewEmployees() { // 1 on action diagram
-		// TODO for every employee under the signed in manager print their associated information
-		// in a format of "fName", "lName", "Salary"$, "jobTitle", "EmployeeID" for each employee
+	/*
+	 * Adds a page to the pagesVisited array list
+	 */
+	private void addPage(int page) {
+		getPagesVisited().add(page);
 	}
 	
+	/*
+	 * Displays basic information about the employees under a manager
+	 */
+	public void viewEmployees() { // 1 on action diagram
+		addPage(1);
+		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		
+		for (int i = 0; i < employeeArr.size(); i++) {
+			Employee employee = employeeArr.get(i);
+			System.out.println(i + 1 + ".) " + employee.getfName() + " " + employee.getlName() + ":\n\tSalary: $"
+					+ employee.getAnnualIncome() + "\n\tJob title: " + employee.getJobTitle() + "\n\tID Number: " 
+					+ employee.getIDNumber() + "\n");
+		}
+	}
+	
+	/*
+	 * Views all info on an employee that was found by searching through user IDs,
+	 * or prints an error message of invalid input is entered
+	 */
 	private void viewSpecificEmployee() { // 2 on action diagram
-		// TODO ask if the user would like to see all employees under them
-		// if so run viewEmployees()
-		// then ask for the employee ID of the employee they would like to view
-		// search all employees for this ID and if one is found display all associated info.
+		addPage(2);
+		final String inputPrompt = "Which ID number would you like to view all of the details for? (or -1 to exit): ";
+		final String errorMsg = "ID could not be found or an incorrect input was entered. Please enter something valid.";
+		
+		while (true) {
+			String usrInput = getStringInput(inputPrompt);
+			Employee employee = getEmployeeByID(usrInput);
+			
+			if (usrInput.equals("-1")) {
+				break;
+			} else if (employee != null) {
+				employee.toString();
+				break;
+			} else  {
+				System.out.println(errorMsg);
+			}
+		}
 	}
 	
+	/**
+	 * Finds and returns an employee by using their ID
+	 * 
+	 * @param employeeID - An employee's ID as a string
+	 * @return The employee that was found by searching the array, or null otherwise
+	 */
+	private Employee getEmployeeByID(String employeeID) {
+		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		Employee retEmployee = null;
+		
+		for (int i = 0; i < employeeArr.size(); i++) {
+			if (Integer.toString(employeeArr.get(i).getIDNumber()).equals(employeeID)) {
+				retEmployee = employeeArr.get(i);
+			}
+		}
+		
+		return retEmployee;
+	}
+	
+	/*
+	 * Prints company stats like total company salaries
+	 */
 	private void viewCompanyStats() { // 3 on action diagram
+		addPage(3);
+		double employeeSalaries = getTotalEmployeeSalaries();
+		double managerSalaries = getTotalManagerSalares();
+		double companySalaries = employeeSalaries + managerSalaries;
+		String output = "Total Normal Employee Salaries Pre-Tax: %.2f"
+				+ "Total Manager Salaries Pre-Tax: %.2f"
+				+ "Total Worker Salaries Pre-Tax: %.2f%n"
+				+ "---------------------------------------------"
+				+ "Total Normal Employee Salaries Post-Tax: %.2f"
+				+ "Total Manager Salaries Post-Tax: %.2f"
+				+ "Total Worker Salaries Post-Tax: %.2f%n%n";
+		System.out.printf(output, employeeSalaries, managerSalaries, companySalaries, 
+				removeTax(employeeSalaries), removeTax(managerSalaries), removeTax(companySalaries));
 		// TODO tally the total company salaries and calculate tax information
 		// also calculate any and all other statistics that come to mind
 	}
 	
+	/**
+	 * Retrieves and returns the total salaries of all manager's employees
+	 * 
+	 * @return A double containing the total salaries of all manager's employees
+	 */
+	public double getTotalEmployeeSalaries() {
+		double total = 0.0;
+		
+		for (int i = 0; i < getManagerList().size(); i++) {
+			for (int k = 0; k < getManagerList().get(i).getEmployeesManaged().size(); i++) {
+				total += getManagerList().get(i).getEmployeesManaged().get(k).getAnnualIncome();
+			}
+		}
+		
+		return total;
+	}
+	
+	/**
+	 * Retrieves and returns the total salaries of all managers
+	 * 
+	 * @return A double containing the total salaries of all managers
+	 */
+	public double getTotalManagerSalares() {
+		double total = 0.0;
+		
+		for (int i = 0; i < getManagerList().size(); i++) {
+			total += getManagerList().get(i).getAnnualIncome();
+		}
+		
+		return total;
+	}
+	
+	/**
+	 * Subtracts the total tax from the salary
+	 * 
+	 * @return A double with the tax removed from the salary
+	 */
+	public double removeTax(double salary) {
+		return salary - (salary * TAX_RATE);
+	}
+	
 	private void promoteEmployee() { // 4 on action diagram
+		addPage(4);
 		// TODO change the employee productiveness stat within a pseudo-random range
 		// depending on how big of a promotion they recieved, (%increase of their pay)
 	}
 	
 	private void hireEmployee() { // 5 on action diagram
+		addPage(5);
 		// TODO within certain conditions generate an employee to be hired
 		// ask for confirmation before hiring employee, also add an option
 		// to hire up to 5 at a time (recommended to go into employee class
@@ -57,14 +173,43 @@ public class App {
 	}
 	
 	private void fireEmployee() { // 6 on action diagram
+		addPage(6);
 		// TODO remove an employee from the managers employee list
 	}
 	
+	/*
+	 * Displays goodbye message to the working manager then closes program
+	 * 
+	 * This can be made more complicated, wasn't really sure if it was supposed to be this simple.
+	 * The pages visited thing can also be deleted if need be, was just something to code and add 
+	 * functionality.
+	 */
 	private void exitProgram() { // 7 on action diagram
-		// TODO exit the program and display a goodbye message
+		String goodbyeMsg = " %n%nGoodbye, %s.%nYou visited " 
+					+ "the following pages in this order:%n%s";
+		System.out.printf(goodbyeMsg, getWorkingManager().getfName(), getPageOrder());
+		System.exit(0);
+	}
+	
+	/**
+	 * Gets the order of pages that the user visited during their time using
+	 * the program
+	 * 
+	 * @return A string containing the pages visited
+	 */
+	private String getPageOrder() {
+		ArrayList<Integer> pageArr = getPagesVisited();
+		String retString = "[" + pageArr.get(0);
+		
+		for (int i = 1; i < pageArr.size(); i++) {
+			retString += ", " + pageArr.get(i);
+		}
+		
+		return retString + "]";
 	}
 	
 	private void sendToLogin() { // 8 on action diagram
+		addPage(8);
 		// TODO send the user to login and display a message stating this happened
 	}
 	
@@ -151,7 +296,7 @@ public class App {
 		boolean ssnValid = false;
 		boolean passValid = false;
 		
-		for (Manager manager : this.managerList) {
+		for (Manager manager : getManagerList()) {
 			if (manager.getSsn().equals(ssn)) {
 				ssnValid = true;
 				if (manager.getPassword().equals(password)) {
@@ -180,17 +325,26 @@ public class App {
         return scanner.nextLine();
     }
 	
+
 	/**
-	* Retrieves a user's string input and returns it.
-	*
-	* @param prompt - The message prompting the user for input.
-	* @return The user's string input.
-	*/
+	 * Retrieves a user's double input and returns it.
+	 * 
+	 * @param prompt - The message prompting the user for input.
+	 * @return The user's double input
+	 */
 	public static double getDoubleInput(String prompt) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print(prompt);
-        return scanner.nextDouble();
-    }
+		return Double.parseDouble(getStringInput(prompt));
+	}
+	
+	/**
+	 * Retrieves a user's int input and returns it.
+	 * 
+	 * @param prompt - The message prompting the user for input.
+	 * @return The user's int input
+	 */
+	public static int getIntInput(String prompt) {
+		return Integer.parseInt(getStringInput(prompt));
+	}
 	
 	/**
 	* Validates whether the user input for SSN matches the desired criteria.
@@ -211,10 +365,22 @@ public class App {
 	
 	/**
 	 * Adds a manager to the managerList given a manager object
+	 * 
 	 * @param manager
 	 */
 	public void addManager(Manager manager) {
-		this.managerList.add(manager);
+		getManagerList().add(manager);
+	}
+
+	/**
+	 * Getters used to get the value of class variables
+	 * 
+	 * Some of the following methods may be temporary
+	 * 
+	 * @return The value of a class level variable
+	 */
+	private Manager getWorkingManager() {
+		return workingManager;
 	}
 
 	public Manager getActiveManager() {
@@ -224,6 +390,12 @@ public class App {
 	public void setActiveManager(Manager activeManager) {
 		this.activeManager = activeManager;
 	}
-	
-	
+
+	private ArrayList<Integer> getPagesVisited() {
+		return pagesVisited;
+	}
+
+	private ArrayList<Manager> getManagerList() {
+		return managerList;
+	}
 }

@@ -42,48 +42,30 @@ public class Manager extends Employee {
 		setPassword(password);
 	}
 	
-	/*
-	 * TODO: write a javadoc
-	 */
-	public void addEmployee(Employee employee) {
-		this.employeesManaged.add(employee);
-	}
-	
-	/*
-	 * TODO: write a javadoc
-	 */
-	public void viewEmployees() {
-		for (int i = 0; i < employeesManaged.size(); i++) {
-			Employee employee = employeesManaged.get(i);
-			System.out.println(employee.getfName() + " " + employee.getlName() + ", SSN: " + employee.getSsn());
-		}
-	}
-	
-	/*
-	 * TODO: write a javadoc
-	 */
-	public void displayPay(int pay) {
-		
-	}
-	
-	/*
-	 * TODO: write javadoc for method
+	/**
+	 * Prints how many off task employees there are and adds them
+	 * to an array.
+	 * 
+	 * @return An array containing all off task employees
 	 */
 	public ArrayList<Employee> offTaskEmployees() {
-		return this.employeesManaged; // change this (only for compilation)
-	}
-	
-	/*
-	 * TODO: write a javadoc for this method
-	 */
-	public void viewAllEmployeeInfo() {
+		ArrayList<Employee> retArr = new ArrayList<>();
 		
-	}
-	
+		for (int i = 0; i < employeesManaged.size(); i++) {
+			Employee employee = employeesManaged.get(i);
+			if (!employee.isOnTask()) {
+				retArr.add(employee);
+			}
+		}
+		
+		System.out.println("You have " + retArr.size() + " employees off task.");
+		return retArr;
+	}	
 	
 	/**
 	 * Helper method to see if an employee with the specified
 	 * IDNumber is in the list of managed employees.
+	 * 
 	 * @param IDNumber
 	 * @return true or false if the employee exist
 	 */
@@ -152,7 +134,33 @@ public class Manager extends Employee {
 	    return newManager;
 	}
 	
-	// Getter and setter methods
+	/**
+	 * Overrides default toString method to return a string containing
+	 * useful information about a manager object.
+	 * 
+	 * @return A string containing all information about a manager
+	 */
+	public String toString() {
+		String retString = super.toString()
+				+ "\n\tSecurity Question: " + getSecurityQuestion()
+				+ "\n\tSecurity Answer: " + getSecurityAnswer()
+				+ "\n\tPassword: " + getPassword()
+				+ "\n\t# Employees Managed: " + getEmployeesManaged().size();
+		return retString;
+	}
+	
+	/*
+	 * Adds a new employee to the manager's employeesManaged array.
+	 */
+	public void addEmployee(Employee employee) {
+		this.employeesManaged.add(employee);
+	}
+	
+	/**
+	 * Getter and setter methods to work with class variables.
+	 * 
+	 * @return The value of a class level variable.
+	 */
 	public String getPassword() {
 		return password;
 	}
