@@ -196,6 +196,7 @@ public class App {
 	 * functionality.
 	 */
 	private void exitProgram() { // 7 on action diagram
+		addPage(7);
 		String goodbyeMsg = " %n%nGoodbye, %s.%nYou visited " 
 					+ "the following pages in this order:%n%s";
 		System.out.printf(goodbyeMsg, getActiveManager().getfName(), getPageOrder());
@@ -225,6 +226,7 @@ public class App {
 	}
 	
 	private void addNewManager() { // 9 on action diagram
+		addPage(9);
 		addManager(Manager.managerCreationWizzard());
 	}
 	
