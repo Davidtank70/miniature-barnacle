@@ -28,6 +28,17 @@ public class App {
 	private void displayMenu() {
 		// TODO Display with options 1-9 the menu options
 		// upon selection of the menu option run the associated method
+		System.out.println("Welcome to the Company Manager Login page, "
+				+ "please choose one the following options listed below:\n"
+				+ "1.View Employees\n"
+				+ "2. View Specific Employee\n"
+				+ "3. View Company Stats\n"
+				+ "4. Promote Employee\n"
+				+ "5. Hire Employee\n"
+				+ "6. Fire Employee\n"
+				+ "7. Exit Program\n"
+				+ "8. Switch Account\n"
+				+ "9. Add Manager\n");
 	}
 	
 	/*
