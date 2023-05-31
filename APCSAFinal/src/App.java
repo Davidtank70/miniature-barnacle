@@ -3,8 +3,8 @@ import java.util.*;
 
 public class App {
 	private ArrayList<Manager> managerList = new ArrayList<Manager>();
-	private Manager activeManager;
 	private ArrayList<Integer> pagesVisited = new ArrayList<Integer>();
+	private Manager activeManager;
 	
 	//Employer FICA tax rate for 2023, may be temporary
 	private static final double TAX_RATE = 0.0765;
@@ -42,7 +42,7 @@ public class App {
 	 */
 	public void viewEmployees() { // 1 on action diagram
 		addPage(1);
-		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		ArrayList<Employee> employeeArr = getActiveManager().getEmployeesManaged();
 		
 		for (int i = 0; i < employeeArr.size(); i++) {
 			Employee employee = employeeArr.get(i);
@@ -83,7 +83,7 @@ public class App {
 	 * @return The employee that was found by searching the array, or null otherwise
 	 */
 	private Employee getEmployeeByID(String employeeID) {
-		ArrayList<Employee> employeeArr = getWorkingManager().getEmployeesManaged();
+		ArrayList<Employee> employeeArr = getActiveManager().getEmployeesManaged();
 		Employee retEmployee = null;
 		
 		for (int i = 0; i < employeeArr.size(); i++) {
@@ -187,7 +187,7 @@ public class App {
 	private void exitProgram() { // 7 on action diagram
 		String goodbyeMsg = " %n%nGoodbye, %s.%nYou visited " 
 					+ "the following pages in this order:%n%s";
-		System.out.printf(goodbyeMsg, getWorkingManager().getfName(), getPageOrder());
+		System.out.printf(goodbyeMsg, getActiveManager().getfName(), getPageOrder());
 		System.exit(0);
 	}
 	
@@ -370,17 +370,6 @@ public class App {
 	 */
 	public void addManager(Manager manager) {
 		getManagerList().add(manager);
-	}
-
-	/**
-	 * Getters used to get the value of class variables
-	 * 
-	 * Some of the following methods may be temporary
-	 * 
-	 * @return The value of a class level variable
-	 */
-	private Manager getWorkingManager() {
-		return workingManager;
 	}
 
 	public Manager getActiveManager() {
