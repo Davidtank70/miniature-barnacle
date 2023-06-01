@@ -208,8 +208,9 @@ public class App {
 					System.out.printf(successPrompt, employees.size() - 1, employees.get(index));
 					employees.remove(index);
 					run = userContinues(repeatPrompt);
+				} else {
+					System.out.println(errorPrompt);
 				}
-				System.out.println(errorPrompt);
 			}
 		}
 		
