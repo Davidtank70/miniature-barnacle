@@ -30,7 +30,7 @@ public class App {
 		// upon selection of the menu option run the associated method
 		System.out.println("Welcome to the Company Manager Login page, "
 				+ "please choose one the following options listed below:\n"
-				+ "1.View Employees\n"
+				+ "1. View Employees\n"
 				+ "2. View Specific Employee\n"
 				+ "3. View Company Stats\n"
 				+ "4. Promote Employee\n"
