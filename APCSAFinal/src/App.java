@@ -183,9 +183,79 @@ public class App {
 		// can add that to the employee list here
 	}
 	
+	/*
+	 * Removes an employee from active manager's managed employees by
+	 * finding their ID. Will print an error message if improper input
+	 * is entered.
+	 */
 	private void fireEmployee() { // 6 on action diagram
 		addPage(6);
+		ArrayList<Employee> employees = getActiveManager().getEmployeesManaged();
+		final String getIdPrompt = "What's the ID of the employee you'd like to remove? (or -1 to exit): ";
+		final String errorPrompt = "ID could not be found or an incorrect input was entered. Please enter something valid.";
+		final String repeatPrompt = "Do you want to remove another employee? (y/n): ";
+		final String successPrompt = "You now have %d employees remaining. Employee removed:%n%n%s%n%n";
+		
+		boolean run = true;
+		while (run) {
+			int usrInput = getIntInput(getIdPrompt);
+			int index = getIdIndex(usrInput);
+			
+			if (usrInput == -1) {
+				run = false;
+			} else {
+				if (index > -1 ) {
+					System.out.printf(successPrompt, employees.size() - 1, employees.get(index));
+					employees.remove(index);
+					run = userContinues(repeatPrompt);
+				}
+				System.out.println(errorPrompt);
+			}
+		}
+		
 		// TODO remove an employee from the managers employee list
+	}
+	
+	/**
+	 * Returns true or false if the user wants to continue or not, or prints
+	 * an error message if the user's input doesn't contain y or n
+	 * 
+	 * @param prompt - A string containing the prompt to be asked
+	 * @return true if the user enters y, false if the user enters x
+	 */
+	private boolean userContinues(String prompt) {
+		final String errorPrompt = "Invalid input. Please enter something that matches the given values.";
+		
+		while (true) {
+			String response = getStringInput(prompt).toLowerCase();
+			
+			if (response.indexOf("n") > -1) {
+				return false;
+			} else if (response.indexOf("y") == -1) {
+				System.out.println(errorPrompt);
+			} else {
+				return true;
+			}
+		}
+	}
+	
+	/**
+	 * Gets the index that a specific ID is found at, or -1 otherwise
+	 * 
+	 * @param IDNumber - The ID to search for
+	 * @return An index containing the index that IDNumber was found at, -1 otherwise
+	 */
+	private int getIdIndex(int IDNumber) {
+		ArrayList<Employee> employees = getActiveManager().getEmployeesManaged();
+		int index = -1;
+		
+		for (int i = 0; i < employees.size(); i++) {
+			if (employees.get(i).getIDNumber() == IDNumber) {
+				index = i;
+			}
+		}
+		
+		return index;
 	}
 	
 	/*
