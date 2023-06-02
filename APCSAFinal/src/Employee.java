@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Employee {
 	// Instance variables
 	private String fName;
@@ -8,6 +11,7 @@ public class Employee {
 	private double annualIncome;
 	private int weeklyHours;
 	private boolean isOnTask; //This is temporary, used for offTaskEmployees() method
+	private int employeeIDNumber = 0;
 	
 	// static instance variable
 	private static int IDNumber = 0;
@@ -43,7 +47,7 @@ public class Employee {
 		setHourlyPay(hourlyPay);
 		setWeeklyHours(weeklyHours);
 		setSsn(ssn);
-		setIDNumber(this.IDNumber);
+		setEmployeeIDNumber(this.IDNumber);
 		
 		// Determine annual income based on the weekly hours and pay
 		setAnnualIncome(getWeeklyHours() * getHourlyPay());
@@ -59,12 +63,36 @@ public class Employee {
 	 * @return A string containing all information about an employee.
 	 */
 	public String toString() {
-		String retString = "ID - " + getIDNumber() + ".) Name: " + getfName() + " " + getlName()
+		String retString = "ID - " + getEmployeeIDNumber() + ".) Name: " + getfName() + " " + getlName()
 				+ "\n\tTitle: " + getJobTitle()
 				+ "\n\tSalary: " + getAnnualIncome()
 				+ "\n\tSSN: " + getSsn();
 		return retString;
 	}
+	
+	public static ArrayList<Employee> generateEmployeeList() {
+        String[] firstNames = {"John", "Jane", "Michael", "Emily", "David", "Olivia", "Daniel", "Sophia", "Andrew", "Isabella"};
+        String[] lastNames = {"Smith", "Johnson", "Brown", "Davis", "Wilson", "Miller", "Anderson", "Taylor", "Clark", "Thomas"};
+        String[] ssnNumbers = {"111-11-1111", "222-22-2222", "333-33-3333", "444-44-4444", "555-55-5555", "666-66-6666", "777-77-7777", "888-88-8888", "999-99-9999", "000-00-0000"};
+        String[] jobTitles = {"Manager", "Engineer", "Salesperson", "Designer", "Administrator", "Accountant", "Developer", "Analyst", "Assistant", "Supervisor"};
+
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < 20; i++) {
+            String fName = firstNames[random.nextInt(firstNames.length)];
+            String lName = lastNames[random.nextInt(lastNames.length)];
+            String jobTitle = jobTitles[random.nextInt(jobTitles.length)];
+            String ssn = ssnNumbers[random.nextInt(ssnNumbers.length)];
+            double hourlyPay = 10.0 + i; // Increase hourly pay by 1 for each employee
+            int weeklyHours = 40; // Assume all employees work 40 hours per week
+
+            Employee employee = new Employee(fName, lName, jobTitle, ssn, hourlyPay, weeklyHours);
+            employeeList.add(employee);
+        }
+
+        return employeeList;
+    }
 	
 	
 	// =========================
@@ -121,11 +149,11 @@ public class Employee {
 		this.weeklyHours = weeklyHours;
 	}
 
-	public int getIDNumber() {
+	public static int getIDNumber() {
 		return IDNumber;
 	}
 
-	public void setIDNumber(int iDNumber) {
+	public static void setIDNumber(int iDNumber) {
 		IDNumber = iDNumber;
 	}
 
@@ -152,4 +180,13 @@ public class Employee {
 	public void setOnTask(boolean isOnTask) {
 		this.isOnTask = isOnTask;
 	}
+
+	public int getEmployeeIDNumber() {
+		return employeeIDNumber;
+	}
+
+	public void setEmployeeIDNumber(int employeeIDNumber) {
+		this.employeeIDNumber = employeeIDNumber;
+	}
+	
 }

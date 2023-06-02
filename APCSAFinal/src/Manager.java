@@ -9,7 +9,7 @@ public class Manager extends Employee {
 	private String securityQuestion;
 	private String securityAnswer;
 	private String password;
-	private ArrayList<Employee> employeesManaged;
+	private ArrayList<Employee> employeesManaged = Employee.generateEmployeeList();
 	
 	
 	public Manager() {

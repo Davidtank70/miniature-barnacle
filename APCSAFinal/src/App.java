@@ -14,15 +14,57 @@ public class App {
 		App app = new App();
 		Manager masterKey = new Manager("Joe", "Bill", "Admin", "123-45-6789", 25.5, 40, "What color is the sky?", "Blue", "Eclipse");
         app.addManager(masterKey);
-        
-        if (app.loginProcess()) {
-        	
-    		app.application();
+        app.setActiveManager(masterKey);
+        while (true) {
+        	if (app.loginProcess()) {
+        		app.application();
+            }
         }
 	}
 	
 	private void application() {
-		displayMenu();
+		while (true) {
+			displayMenu();
+			Scanner input = new Scanner(System.in);
+			int selection = input.nextInt();
+			if (selection > 0 && selection < 10) {
+				switch (selection) {
+	            case 1:
+	                viewEmployees();
+	                break;
+	            case 2:
+	                viewSpecificEmployee();
+	                break;
+	            case 3:
+	                viewCompanyStats();
+	                break;
+	            case 4:
+	                promoteEmployee();
+	                break;
+	            case 5:
+	                hireEmployee();
+	                break;
+	            case 6:
+	                fireEmployee();
+	                break;
+	            case 7:
+	                exitProgram();
+	                break;
+	            case 8:
+	                sendToLogin();
+	                break;
+	            case 9:
+	                addNewManager();
+	                break;
+	            default:
+	                System.out.println("Invalid menu option selected.");
+	                break;
+				}	
+			} else {
+				System.out.println("Your selection was invalid, please enter a number 1-9");
+				application();
+			}
+		}
 	}
 	
 	private void displayMenu() {
@@ -33,11 +75,11 @@ public class App {
 				+ "1. View Employees\n"
 				+ "2. View Specific Employee\n"
 				+ "3. View Company Stats\n"
-				+ "4. Promote Employee\n"
-				+ "5. Hire Employee\n"
+				+ "4. Promote Employee (WIP)\n"
+				+ "5. Hire Employee (WIP)\n"
 				+ "6. Fire Employee\n"
 				+ "7. Exit Program\n"
-				+ "8. Switch Account\n"
+				+ "8. Switch Account (WIP)\n"
 				+ "9. Add Manager\n");
 	}
 	
@@ -59,7 +101,7 @@ public class App {
 			Employee employee = employeeArr.get(i);
 			System.out.println(i + 1 + ".) " + employee.getfName() + " " + employee.getlName() + ":\n\tSalary: $"
 					+ employee.getAnnualIncome() + "\n\tJob title: " + employee.getJobTitle() + "\n\tID Number: " 
-					+ employee.getIDNumber() + "\n");
+					+ employee.getEmployeeIDNumber() + "\n");
 		}
 	}
 	
@@ -68,23 +110,24 @@ public class App {
 	 * or prints an error message of invalid input is entered
 	 */
 	private void viewSpecificEmployee() { // 2 on action diagram
-		addPage(2);
-		final String inputPrompt = "Which ID number would you like to view all of the details for? (or -1 to exit): ";
-		final String errorMsg = "ID could not be found or an incorrect input was entered. Please enter something valid.";
-		
-		while (true) {
-			String usrInput = getStringInput(inputPrompt);
-			Employee employee = getEmployeeByID(usrInput);
-			
-			if (usrInput.equals("-1")) {
-				break;
-			} else if (employee != null) {
-				employee.toString();
-				break;
-			} else  {
-				System.out.println(errorMsg);
-			}
-		}
+	    addPage(2);
+	    final String inputPrompt = "Which ID number would you like to view all of the details for? (or -1 to exit): ";
+	    final String errorMsg = "ID could not be found or an incorrect input was entered. Please enter something valid.";
+
+	    while (true) {
+	        String usrInput = getStringInput(inputPrompt);
+	        if (usrInput.equals("-1")) {
+	            break;
+	        } else {
+	            Employee worker = getEmployeeByID(usrInput);
+	            if (worker != null) {
+	                System.out.println(worker.toString());
+	                break;
+	            } else {
+	                System.out.println(errorMsg);
+	            }
+	        }
+	    }
 	}
 	
 	/**
@@ -98,7 +141,7 @@ public class App {
 		Employee retEmployee = null;
 		
 		for (int i = 0; i < employeeArr.size(); i++) {
-			if (Integer.toString(employeeArr.get(i).getIDNumber()).equals(employeeID)) {
+			if (Integer.toString(employeeArr.get(i).getEmployeeIDNumber()).equals(employeeID)) {
 				retEmployee = employeeArr.get(i);
 			}
 		}
@@ -114,13 +157,13 @@ public class App {
 		double employeeSalaries = getTotalEmployeeSalaries();
 		double managerSalaries = getTotalManagerSalares();
 		double companySalaries = employeeSalaries + managerSalaries;
-		String output = "Total Normal Employee Salaries Pre-Tax: %.2f"
-				+ "Total Manager Salaries Pre-Tax: %.2f"
-				+ "Total Worker Salaries Pre-Tax: %.2f%n"
-				+ "---------------------------------------------"
-				+ "Total Normal Employee Salaries Post-Tax: %.2f"
-				+ "Total Manager Salaries Post-Tax: %.2f"
-				+ "Total Worker Salaries Post-Tax: %.2f%n%n";
+		String output = "Total Normal Employee Salaries Pre-Tax: %.2f\n"
+				+ "Total Manager Salaries Pre-Tax: %.2f\n"
+				+ "Total Worker Salaries Pre-Tax: %.2f%n\n"
+				+ "---------------------------------------------\n"
+				+ "Total Normal Employee Salaries Post-Tax: %.2f\n"
+				+ "Total Manager Salaries Post-Tax: %.2f\n"
+				+ "Total Worker Salaries Post-Tax: %.2f%n%n\n";
 		System.out.printf(output, employeeSalaries, managerSalaries, companySalaries, 
 				removeTax(employeeSalaries), removeTax(managerSalaries), removeTax(companySalaries));
 		// TODO tally the total company salaries and calculate tax information
@@ -133,15 +176,16 @@ public class App {
 	 * @return A double containing the total salaries of all manager's employees
 	 */
 	public double getTotalEmployeeSalaries() {
-		double total = 0.0;
-		
-		for (int i = 0; i < getManagerList().size(); i++) {
-			for (int k = 0; k < getManagerList().get(i).getEmployeesManaged().size(); i++) {
-				total += getManagerList().get(i).getEmployeesManaged().get(k).getAnnualIncome();
-			}
-		}
-		
-		return total;
+	    double total = 0.0;
+
+	    for (Manager manager : getManagerList()) {
+	        ArrayList<Employee> employees = manager.getEmployeesManaged();
+	        for (Employee employee : employees) {
+	            total += employee.getAnnualIncome();
+	        }
+	    }
+
+	    return total;
 	}
 	
 	/**
@@ -150,13 +194,13 @@ public class App {
 	 * @return A double containing the total salaries of all managers
 	 */
 	public double getTotalManagerSalares() {
-		double total = 0.0;
-		
-		for (int i = 0; i < getManagerList().size(); i++) {
-			total += getManagerList().get(i).getAnnualIncome();
-		}
-		
-		return total;
+	    double total = 0.0;
+
+	    for (Manager manager : getManagerList()) {
+	        total += manager.getAnnualIncome();
+	    }
+
+	    return total;
 	}
 	
 	/**
@@ -251,7 +295,7 @@ public class App {
 		int index = -1;
 		
 		for (int i = 0; i < employees.size(); i++) {
-			if (employees.get(i).getIDNumber() == IDNumber) {
+			if (employees.get(i).getEmployeeIDNumber() == IDNumber) {
 				index = i;
 			}
 		}
@@ -293,6 +337,7 @@ public class App {
 	
 	private void sendToLogin() { // 8 on action diagram
 		addPage(8);
+		application();
 		// TODO send the user to login and display a message stating this happened
 	}
 	
